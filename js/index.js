@@ -8,7 +8,9 @@ window.addEventListener('load', function() {
             optionList: ['全部事件', '未完成事件', '完成事件'],
             option: '请选择事件类型',
             inputValue: '',
+            // 要修改的索引号
             reviseid: 0,
+            // 按钮显示
             buttonname: '',
             lists: [{ name: '未完成事件1', status: false }, { name: '未完成事件2', status: false }, { name: '未完成事件3', status: false }, { name: '完成事件1', status: true }, { name: '完成事件2', status: true }, { name: '完成事件3', status: true }],
         },
