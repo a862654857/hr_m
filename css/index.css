@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+#app {
+    text-align: center;
+}
+
+select {
+    display: inline-block;
+}
+
+input {
+    display: inline-block;
+}
+
+.box {
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+ul {
+    width: 100%;
+}
+
+li {
+    text-align: left;
+}
+
+span {
+    display: inline-block;
+    width: 100px;
+}
+
+.xian {
+    text-decoration: line-through;
+    color: #ccc;
+}
