@@ -1,42 +1,105 @@
 <template>
   <div>
-    <van-tabs v-model="active" sticky color="#1989fa">
-      <van-tab title="未审核">
-        <div class="box1">
-          <span class="left ">头像</span>
-          <span class="left ">昵称/加入时间</span>
-          <span class="right">活跃度</span>
-        </div>
-      </van-tab>
-      <van-tab title="已审核">内容 2</van-tab>
+    <van-tabs v-model="status" sticky color="#1989fa" @click="getdata">
+      <van-tab title="全部" name=""> </van-tab>
+      <van-tab title="待审批" name="待审批"> </van-tab>
+      <van-tab title="待发货" name="待发货"> </van-tab>
+      <van-tab title="已发货" name="已发货"> </van-tab>
+      <van-tab title="已拒绝" name="已拒绝"></van-tab>
     </van-tabs>
+    <div class="box1">
+      <span>耗材名称</span>
+      <span>申请数量</span>
+      <span>状态</span>
+      <span>申请时间</span>
+    </div>
+    <div>
+      <div v-for="item in consumablesdata" :key="item.consumables_outbound_key">
+        <div class="box2">
+          <span>{{ item["耗材名称"] }}</span>
+          <span>{{ item["申请数量"] }}</span>
+          <span>{{ item["状态"] }}</span>
+          <span>{{ item["申请时间"] }} </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import {
+  query,
+  apiparas,
+  execute,
+  pub_query,
+  querytocache,
+  getquerybycache,
+  getcachetoxls,
+} from "../../api/api";
+import { Cookie } from "../../js/common";
 export default {
   data() {
-    return { active: 0 };
+    return { status: "", consumablesdata: [] };
   },
-  created() {},
+  created() {
+    this.getconsumablesdata();
+  },
   mounted() {},
-  methods: {},
+  methods: {
+    getconsumablesdata() {
+      let jsonparas = [
+        {
+          name: "status",
+          value: this.status,
+        },
+        {
+          name: "user_name",
+          value: Cookie.Get("uname"),
+        },
+      ];
+      let _paras = apiparas.getParas(
+        "default",
+        "hr|hr_consumables|get_consumable_application_order",
+        jsonparas
+      );
+      query(_paras).then((res) => {
+        this.consumablesdata = res.result;
+        console.log(this.consumablesdata);
+      });
+    },
+    getdata(name, title) {
+      this.getconsumablesdata();
+    },
+  },
 };
 </script>
 <style scoped>
 .auditingitem {
   margin-top: 1.5rem;
 }
-.box1{
-  font-size: 0.7rem;
+.box1,
+.box2 {
+  background-color: #fff;
+}
+.box1 {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.5rem;
   width: 100%;
   height: 40px;
   line-height: 40px;
   border-bottom: 1px solid #1989fa;
 }
-.left{
-  float: left;
+.box2 {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  height: 3rem;
+  line-height: 3rem;
 }
-.right{
-  float: right;
+span {
+  display: inline-block;
+  width: 5rem;
+  text-align: center;
+  font-size: 0.9rem;
 }
 </style>

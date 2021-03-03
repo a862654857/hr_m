@@ -6,6 +6,7 @@ import '@/assets/style/iconfont/iconfont.css'
 import '@/assets/style/iconfont/iconfont.js'
 import Vant from 'vant';
 import 'vant/lib/index.css';
+import { Notify } from 'vant';
 //引入nprogress
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css' //这个样式必须引入
@@ -13,6 +14,7 @@ import 'nprogress/nprogress.css' //这个样式必须引入
 import "babel-polyfill";
  
 Vue.use(Vant);
+Vue.prototype.$Notify=Notify
 
 // import mavonEditor from 'mavon-editor'
 // import 'mavon-editor/dist/css/index.css'
@@ -24,7 +26,15 @@ Vue.use(Vant);
 // Vue.component('icon', Icon)
  
 import { Cookie } from './js/common';
-	
+router.beforeEach((to, from, next) => {
+  var user = Cookie.Get('token');
+  if(process.env.NODE_ENV =='development'){
+    Cookie.Set('token', '3783022B5AE941A58CD6817F78756A7C');
+    Cookie.Set('uname', '崔彩虹');
+    user = '3783022B5AE941A58CD6817F78756A7C'; 
+  }
+  next();
+})
 // router.beforeEach((to, from, next) => {
 // NProgress.start()
 // var user = Cookie.Get('token');
