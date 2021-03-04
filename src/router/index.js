@@ -6,12 +6,18 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/",
-      redirect: "/home"
+			path: '/',
+			redirect: '/'+ STATIC_CONFIG.home
     },
+		{
+      path: '/authApp',
+      props: true,
+			component: resolve => require(['../components/authApp.vue'], resolve)
+		},
     {
       path: "/home",
       component: resolve => require(["../components/page/home.vue"], resolve),
+      redirect: '/auditing',
       children: [
         {
           path: "/my",

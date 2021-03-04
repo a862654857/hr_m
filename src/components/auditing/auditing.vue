@@ -1,21 +1,28 @@
 <template>
   <div>
     <div class="auditingitem">
-      <van-cell :border="true" @click="to('/auditing_detail')" title="耗材申请" is-link size="large"/>
+          <van-index-anchor index="申请类型" />
+        <van-cell
+          :border="true"
+          @click="to('/auditing_detail')"
+          title="耗材申请"
+          is-link
+          size="large"
+        />
     </div>
   </div>
 </template>
 <script>
 export default {
   data() {
-    return {  };
+    return {};
   },
   created() {},
   mounted() {},
   methods: {
-    to(path){
-      this.$router.push({path:path})
-    }
+    to(path) {
+      this.$router.push({ path: path });
+    },
   },
 };
 </script>

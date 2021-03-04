@@ -27,14 +27,29 @@ Vue.prototype.$Notify=Notify
  
 import { Cookie } from './js/common';
 router.beforeEach((to, from, next) => {
+  /*
+  if (to.path == '/auth') {
+      Cookie.Set('token','');
+  }
+  */
+  var windowsurl = window.location.href;
+  //kf.eipub.vip:8819
+  if(windowsurl.indexOf("8819")>-1){
+  　　Cookie.Set('token', 'BD5117BBDC0941248F6760938D43E3F1');
+  }
   var user = Cookie.Get('token');
   if(process.env.NODE_ENV =='development'){
     Cookie.Set('token', '3783022B5AE941A58CD6817F78756A7C');
     Cookie.Set('uname', '崔彩虹');
     user = '3783022B5AE941A58CD6817F78756A7C'; 
   }
-  next();
-})
+  if( user || to.path.substr(0,8) === '/authapp'){
+    next();
+  }else{
+  //	next();
+    next({path:'/authapp',query:{props:to}})
+  }
+  })
 // router.beforeEach((to, from, next) => {
 // NProgress.start()
 // var user = Cookie.Get('token');

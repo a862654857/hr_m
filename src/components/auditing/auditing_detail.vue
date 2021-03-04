@@ -3,12 +3,12 @@
     <van-tabs v-model="status" sticky color="#1989fa" @click="getdata">
       <van-tab title="全部" name=""> </van-tab>
       <van-tab title="待审批" name="待审批"> </van-tab>
-      <van-tab title="待发货" name="待发货"> </van-tab>
-      <van-tab title="已发货" name="已发货"> </van-tab>
+      <van-tab title="待领取" name="待领取"> </van-tab>
+      <van-tab title="已领取" name="已领取"> </van-tab>
       <van-tab title="已拒绝" name="已拒绝"></van-tab>
     </van-tabs>
     <div class="box1">
-      <span>耗材名称</span>
+      <span class="name">耗材名称</span>
       <span>申请数量</span>
       <span>状态</span>
       <span>申请时间</span>
@@ -16,7 +16,7 @@
     <div>
       <div v-for="item in consumablesdata" :key="item.consumables_outbound_key">
         <div class="box2">
-          <span>{{ item["耗材名称"] }}</span>
+          <span class="name">{{ item["耗材名称"] }}</span>
           <span>{{ item["申请数量"] }}</span>
           <span>{{ item["状态"] }}</span>
           <span>{{ item["申请时间"] }} </span>
@@ -63,7 +63,6 @@ export default {
       );
       query(_paras).then((res) => {
         this.consumablesdata = res.result;
-        console.log(this.consumablesdata);
       });
     },
     getdata(name, title) {
@@ -101,5 +100,8 @@ span {
   width: 5rem;
   text-align: center;
   font-size: 0.9rem;
+}
+.name{
+    width: 7rem;
 }
 </style>
