@@ -2,10 +2,10 @@
   <div>
     <van-tabs v-model="status" sticky color="#1989fa" @click="getdata">
       <van-tab title="全部" name=""> </van-tab>
-      <van-tab title="待审批" name="待审批"> </van-tab>
-      <van-tab title="待领取" name="待领取"> </van-tab>
-      <van-tab title="已领取" name="已领取"> </van-tab>
-      <van-tab title="已拒绝" name="已拒绝"></van-tab>
+      <van-tab title="待审批" name="40010"> </van-tab>
+      <van-tab title="待领取" name="40020"> </van-tab>
+      <van-tab title="已领取" name="40030"> </van-tab>
+      <van-tab title="已拒绝" name="40040"></van-tab>
     </van-tabs>
     <div class="box1">
       <span class="name">耗材名称</span>

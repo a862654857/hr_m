@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="auditingitem">
-          <van-index-anchor index="申请类型" />
+          <van-index-anchor index="申请单类型" />
         <van-cell
           :border="true"
           @click="to('/auditing_detail')"
-          title="耗材申请"
+          title="耗材申请单"
           is-link
           size="large"
         />
