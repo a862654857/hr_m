@@ -106,6 +106,7 @@ export default {
           this.consumables_key=0
           this.maxquantity=0
           this.$Notify({ type: "success", message: "申请操作成功" });
+          this.get_consumablesdata()
         } else {
           this.$Notify({ type: "warning", message: res.errmsg });
         }
