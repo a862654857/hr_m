@@ -1,25 +1,27 @@
 <template>
   <div>
-    <van-tabs v-model="status" sticky color="#1989fa" @click="getdata">
-      <van-tab title="全部" name=""> </van-tab>
-      <van-tab title="待审批" name="40010"> </van-tab>
-      <van-tab title="待领取" name="40020"> </van-tab>
-      <van-tab title="已领取" name="40030"> </van-tab>
-      <van-tab title="已拒绝" name="40040"></van-tab>
-    </van-tabs>
-    <div class="box1">
-      <span class="name">耗材名称</span>
-      <span>申请数量</span>
-      <span>状态</span>
-      <span>申请时间</span>
+    <div class="top">
+      <van-tabs v-model="status" sticky color="#1989fa" @click="getdata">
+        <van-tab title="全部" name=""> </van-tab>
+        <van-tab title="待审批" name="40010"> </van-tab>
+        <van-tab title="待领取" name="40020"> </van-tab>
+        <van-tab title="已领取" name="40030"> </van-tab>
+        <van-tab title="已拒绝" name="40040"></van-tab>
+      </van-tabs>
+      <div class="box1">
+        <span class="name">耗材名称</span>
+        <span >申请数量</span>
+        <span>状态</span>
+        <span class="date">申请时间</span>
+      </div>
     </div>
-    <div>
+    <div :style="styleObject" class="main">
       <div v-for="item in consumablesdata" :key="item.consumables_outbound_key">
         <div class="box2">
           <span class="name">{{ item["耗材名称"] }}</span>
-          <span>{{ item["申请数量"] }}</span>
+          <span >{{ item["申请数量"] }}</span>
           <span>{{ item["状态"] }}</span>
-          <span>{{ item["申请时间"] }} </span>
+          <span class="date">{{ item["申请时间"] }} </span>
         </div>
       </div>
     </div>
@@ -38,10 +40,18 @@ import {
 import { Cookie } from "../../js/common";
 export default {
   data() {
-    return { status: "", consumablesdata: [] };
+    return {
+      status: "",
+      consumablesdata: [],
+      styleObject: {
+        overflow: "auto",
+      },
+    };
   },
   created() {
     this.getconsumablesdata();
+    // this.styleObject.height=window.screen.height+'px'
+    // console.log(this.styleObject.height);
   },
   mounted() {},
   methods: {
@@ -72,6 +82,9 @@ export default {
 };
 </script>
 <style scoped>
+.date{
+  width: 7.5rem;
+}
 .auditingitem {
   margin-top: 1.5rem;
 }
@@ -101,7 +114,23 @@ span {
   text-align: center;
   font-size: 0.9rem;
 }
-.name{
-    width: 7rem;
+.name {
+  width: 7rem;
 }
+.data {
+  overflow: auto;
+}
+
+.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.main {
+  margin-top: 84px;
+  margin-bottom: 50px;
+}
+</style>
+<style>
 </style>
