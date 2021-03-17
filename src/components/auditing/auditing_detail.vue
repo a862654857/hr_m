@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="loading" v-show="loading">
+      <van-loading type="spinner"  />
+    </div>
     <div class="top">
       <van-tabs v-model="status" sticky color="#1989fa" @click="getdata">
         <van-tab title="全部" name=""> </van-tab>
@@ -10,16 +13,21 @@
       </van-tabs>
       <div class="box1">
         <span class="name">耗材名称</span>
-        <span >申请数量</span>
+        <span>申请数量</span>
         <span>状态</span>
         <span class="date">申请时间</span>
       </div>
     </div>
     <div :style="styleObject" class="main">
+      <van-empty
+        v-show="consumablesdata.length == 0"
+        image="search"
+        description="无"
+      />
       <div v-for="item in consumablesdata" :key="item.consumables_outbound_key">
         <div class="box2">
           <span class="name">{{ item["耗材名称"] }}</span>
-          <span >{{ item["申请数量"] }}</span>
+          <span>{{ item["申请数量"] }}</span>
           <span>{{ item["状态"] }}</span>
           <span class="date">{{ item["申请时间"] }} </span>
         </div>
@@ -46,6 +54,7 @@ export default {
       styleObject: {
         overflow: "auto",
       },
+      loading: false,
     };
   },
   created() {
@@ -56,6 +65,7 @@ export default {
   mounted() {},
   methods: {
     getconsumablesdata() {
+      this.loading = true;
       let jsonparas = [
         {
           name: "status",
@@ -72,7 +82,12 @@ export default {
         jsonparas
       );
       query(_paras).then((res) => {
-        this.consumablesdata = res.result;
+        if (res.errid == 0) {
+          this.consumablesdata = res.result;
+        }else{
+          this.$Notify({ type: "warning", message: res.message });
+        }
+        this.loading = false;
       });
     },
     getdata(name, title) {
@@ -82,7 +97,13 @@ export default {
 };
 </script>
 <style scoped>
-.date{
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.date {
   width: 7.5rem;
 }
 .auditingitem {
